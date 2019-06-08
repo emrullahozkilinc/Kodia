@@ -1,4 +1,4 @@
-package com.emr.kodi.KodiaSoftProject.entity.dao;
+package com.emr.kodi.KodiaSoftProject.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

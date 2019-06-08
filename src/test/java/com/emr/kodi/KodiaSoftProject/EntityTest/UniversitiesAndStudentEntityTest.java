@@ -16,10 +16,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.emr.kodi.KodiaSoftProject.dao.StudentsRepo;
+import com.emr.kodi.KodiaSoftProject.dao.UniversitiesRepo;
 import com.emr.kodi.KodiaSoftProject.entity.Students;
 import com.emr.kodi.KodiaSoftProject.entity.Universities;
-import com.emr.kodi.KodiaSoftProject.entity.dao.StudentsRepo;
-import com.emr.kodi.KodiaSoftProject.entity.dao.UniversitiesRepo;
 import com.emr.kodi.KodiaSoftProject.enums.UniversityType;
 
 @RunWith(SpringRunner.class)
