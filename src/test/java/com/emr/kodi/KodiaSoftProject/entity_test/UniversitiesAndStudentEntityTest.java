@@ -1,4 +1,4 @@
-package com.emr.kodi.KodiaSoftProject.EntityTest;
+package com.emr.kodi.KodiaSoftProject.entity_test;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
