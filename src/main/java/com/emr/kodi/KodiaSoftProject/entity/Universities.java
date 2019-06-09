@@ -1,23 +1,20 @@
 package com.emr.kodi.KodiaSoftProject.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import com.emr.kodi.KodiaSoftProject.enums.UniversityType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,6 +40,7 @@ public class Universities{
 	private String web_page;
 	
 	//devlet ve vakıf üniversitesi şeklinde iki tip barındaran enum.
+	@Enumerated(EnumType.STRING)
 	private UniversityType type;
 	
 	private Date founded_at;
