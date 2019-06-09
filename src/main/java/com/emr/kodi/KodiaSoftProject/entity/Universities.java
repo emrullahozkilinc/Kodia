@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +41,7 @@ public class Universities{
 	private String web_page;
 	
 	//devlet ve vakıf üniversitesi şeklinde iki tip barındaran enum.
+	@Enumerated(EnumType.STRING)
 	private UniversityType type;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
