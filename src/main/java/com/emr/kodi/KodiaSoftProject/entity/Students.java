@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-<<<<<<< HEAD
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -17,11 +16,6 @@ import javax.validation.constraints.PastOrPresent;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-=======
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
->>>>>>> DaoBranch
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -68,36 +62,17 @@ public class Students{
 	@JoinColumn(name="university_id")
 	private Universities university;
 	
-	
-	
-<<<<<<< HEAD
-=======
-	
->>>>>>> DaoBranch
 	public Students() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
-<<<<<<< HEAD
-=======
-	
->>>>>>> DaoBranch
-
 	public Students(String name, Date started_at) {
 		this.name = name;
 		this.started_at = started_at;
 	}
-<<<<<<< HEAD
 	
 	
-
-=======
-
-	
-	
-	
->>>>>>> DaoBranch
 	public int getId() {
 		return id;
 	}
@@ -147,11 +122,8 @@ public class Students{
 	}
 
 
-<<<<<<< HEAD
 	
-=======
 
->>>>>>> DaoBranch
 	@Override
 	public String toString() {
 		return "Students [id=" + id + ", name=" + name + ", started_at=" + started_at + ", created_at=" + created_at
