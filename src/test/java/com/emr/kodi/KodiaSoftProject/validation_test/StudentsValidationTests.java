@@ -3,7 +3,6 @@ package com.emr.kodi.KodiaSoftProject.validation_test;
 import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -57,7 +56,7 @@ public class StudentsValidationTests {
 		
 		//given
 		Students alex = new Students("ali",new Date());
-        Universities kbuuniversity=new Universities("KArabusasdk uni", "karabuk", "kbu.com", UniversityType.DEVLET, new Date());
+        Universities kbuuniversity=new Universities("KArabusasdk uni", "karabuk", "kbu.com", UniversityType.Devlet, new Date());
         kbuuniversity.setApi_id(4);
         
         

@@ -17,8 +17,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.emr.kodi.KodiaSoftProject.serialization.StudentUniversitySerialize;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /*
  * Students entity sınıfı.
@@ -28,21 +31,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="students")
-@JsonIgnoreProperties(value= {"created_at","updated_at"},
+@JsonIgnoreProperties(value= {"created_at","updated_at","university_ids"},
 	allowGetters=true)
 public class Students{
 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank
+	@NotBlank(message="Öğrenci adı boş bırakılamaz.")
 	private String name;
 	
 	//Üniversiteye başlangıç tarihi
 	//Kullanıcıdan alınacağı için @DateTimeFormat kullanıldı. 
-	@NotNull
+	@NotNull(message="Tarih boş bırakılamaz.")
 	@PastOrPresent
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date started_at;
@@ -58,9 +61,19 @@ public class Students{
 	private Date updated_at;
 	
 	//Üniversitenin tutulduğu değişken. Tablodaki university_id ile eşleşir.
+	@JsonDeserialize(converter = StudentUniversitySerialize.class)
 	@ManyToOne
 	@JoinColumn(name="university_id")
 	private Universities university;
+	
+	
+	/*Integer university_ids;
+	
+	@JsonProperty("university")
+    public void setTheName(Integer university) {
+    	System.out.println("çağırıldı");
+        this.university_ids = university;
+    }*/
 	
 	public Students() {
 		// TODO Auto-generated constructor stub

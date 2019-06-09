@@ -44,7 +44,7 @@ public class Universities{
 	@Enumerated(EnumType.STRING)
 	private UniversityType type;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy")
 	private Date founded_at;
 	
 	@CreationTimestamp
