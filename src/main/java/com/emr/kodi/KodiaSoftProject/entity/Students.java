@@ -3,6 +3,7 @@ package com.emr.kodi.KodiaSoftProject.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +16,12 @@ import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.emr.kodi.KodiaSoftProject.serialization.StudentUniversitySerialize;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /*
@@ -31,23 +32,24 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Table(name="students")
-@JsonIgnoreProperties(value= {"created_at","updated_at","university_ids"},
-	allowGetters=true)
+@JsonIgnoreProperties(value= {"created_at","updated_at"})
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class Students{
 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@NotBlank(message="Öğrenci adı boş bırakılamaz.")
 	private String name;
 	
 	//Üniversiteye başlangıç tarihi
-	//Kullanıcıdan alınacağı için @DateTimeFormat kullanıldı. 
 	@NotNull(message="Tarih boş bırakılamaz.")
 	@PastOrPresent
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date started_at;
 	
 	//Objenin değişkeni oluşturulması durumunda o anki zaman bu değişkene kaydedilir. 
@@ -66,14 +68,6 @@ public class Students{
 	@JoinColumn(name="university_id")
 	private Universities university;
 	
-	
-	/*Integer university_ids;
-	
-	@JsonProperty("university")
-    public void setTheName(Integer university) {
-    	System.out.println("çağırıldı");
-        this.university_ids = university;
-    }*/
 	
 	public Students() {
 		// TODO Auto-generated constructor stub

@@ -1,12 +1,12 @@
 package com.emr.kodi.KodiaSoftProject.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class AllStudentsDto {
+public class SingleStudentsDto {
 	int id;
 	String name;
 	Date started_at;
-	String university;
+	UniversityDtoForSingleStudentsDto university;
 	
 	
 	public int getId() {
@@ -27,11 +27,12 @@ public class AllStudentsDto {
 	public void setStarted_at(Date started_at) {
 		this.started_at = started_at;
 	}
-	public void setUniversity(String university) {
-		this.university = university;
-	}
-	public String getUniversity() {
+	public UniversityDtoForSingleStudentsDto getUniversity() {
 		return university;
 	}
+	public void setUniversity(UniversityDtoForSingleStudentsDto university) {
+		this.university = university;
+	}
+	
 	
 }
