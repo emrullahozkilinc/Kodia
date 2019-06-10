@@ -1,14 +1,8 @@
 package com.emr.kodi.KodiaSoftProject.exception.get_Id;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.Errors;
-
 public class AddStudentErrors {
 	String status;
 	String message;
-	
-	@Autowired
-	Errors errors;
 	
 	public AddStudentErrors() {
 		// TODO Auto-generated constructor stub
@@ -39,7 +33,6 @@ public class AddStudentErrors {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
 	
 
 }

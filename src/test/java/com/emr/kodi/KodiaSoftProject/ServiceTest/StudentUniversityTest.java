@@ -24,7 +24,7 @@ public class StudentUniversityTest {
     static class StudentServiceImplTestContextConfiguration {
   
         @Bean
-        public StudentsService employeeService() {
+        public StudentsService studentService() {
             return new StudentsServiceImpl();
         }
     }

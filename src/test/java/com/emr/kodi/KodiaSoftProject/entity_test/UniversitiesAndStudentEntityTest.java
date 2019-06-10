@@ -44,8 +44,8 @@ public class UniversitiesAndStudentEntityTest {
     public void whenTakeAllStudents_thenReturnAddedAllStudents() {
         // given
         Students alex = new Students("ali",new Date());
-        Universities kbuuniversity=new Universities("KArabuk uni", "karabuk", "kbu.com", UniversityType.Devlet, new Date());
-        kbuuniversity.setApi_id(2);
+        Universities kbuuniversity=new Universities("KArabsadcauk uni", "karabuk", "kbu.com", UniversityType.Devlet, new Date());
+        kbuuniversity.setApi_id(4);
         
         
         alex.setUniversity(kbuuniversity);

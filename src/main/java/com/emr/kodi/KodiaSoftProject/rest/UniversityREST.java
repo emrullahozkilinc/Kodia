@@ -1,28 +1,25 @@
 package com.emr.kodi.KodiaSoftProject.rest;
 
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.emr.kodi.KodiaSoftProject.dto.AllStudentsDto;
 import com.emr.kodi.KodiaSoftProject.dto.AllUniversitiesDto;
-import com.emr.kodi.KodiaSoftProject.dto.UniversityDto;
 import com.emr.kodi.KodiaSoftProject.entity.Universities;
 import com.emr.kodi.KodiaSoftProject.exception.get_Id.UniversityNotFoundError;
 import com.emr.kodi.KodiaSoftProject.exception.get_Id.UniversityNotFoundException;
-import com.emr.kodi.KodiaSoftProject.service.StudentsService;
 import com.emr.kodi.KodiaSoftProject.service.UniversitiesService;
 
 @RestController
@@ -33,31 +30,47 @@ public class UniversityREST {
 	UniversitiesService universitiesService;
 	
 	@Autowired
-	StudentsService studentsService;
+	ModelMapper modelMapper;
 	
 	@GetMapping
-	@ResponseStatus(value=HttpStatus.OK,code=HttpStatus.OK,reason="Başarıyla tüm üniversiteler  getirildi.")
-	public AllUniversitiesDto getAllUniversities() {
-		return null;
+	@ResponseStatus(value = HttpStatus.OK, code = HttpStatus.OK)
+	public List<AllUniversitiesDto> getAllUniversities() {
+		List<Universities> list=universitiesService.findAll();
+		
+		List<AllUniversitiesDto> convertedList=new LinkedList<>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			convertedList.add(modelMapper.map(list.get(i), AllUniversitiesDto.class));
+		}
+        
+		return convertedList;
+	}
+	
+	//silinecek
+	@GetMapping("/age")
+	ResponseEntity<String> age() {
+	  
+	    return new ResponseEntity<>("Your age is ",HttpStatus.BAD_REQUEST);
 	}
 	
 	
+	
 	@GetMapping("/{id}")
-	public UniversityDto getUniversity(@PathVariable(name="id",required=true) int id) {
+	public Universities getUniversity(@PathVariable(name="id",required=true) int id) {
 		
-		Universities university=null;
-		university=universitiesService.findWithId(id);
+		Universities university=universitiesService.findWithId(id);
 		
 		try {
 			university.getName();
 		} catch (EntityNotFoundException e) {
-			throw new UniversityNotFoundException(id+" numara kayıtlı üniversite bulunamadı.");
+			throw new UniversityNotFoundException("Üniversite bulunamadı.");
 		}
 		
 		
-		return null;
+		return university;
 		
 	}
+	
 	
 	@ExceptionHandler
 	public ResponseEntity<UniversityNotFoundError> handleException(UniversityNotFoundException exc) {
