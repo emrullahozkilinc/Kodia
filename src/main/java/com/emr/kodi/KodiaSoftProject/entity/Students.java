@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,12 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/*
- * Students entity sınıfı.
- * 
- */
-
-
+@ApiModel(description = "Entity for Students")
 @Entity
 @Table(name="students")
 @JsonIgnoreProperties(value= {"created_at","updated_at"})
@@ -38,31 +35,32 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 		  property = "id")
 public class Students{
 
-	
+	@ApiModelProperty(value = "Student id (autoincrement)")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
+
+	@ApiModelProperty(value = "Student name", required = true)
 	@NotBlank(message="Öğrenci adı boş bırakılamaz.")
 	private String name;
 	
-	//Üniversiteye başlangıç tarihi
+	@ApiModelProperty(value = "Date when student started to university", example = "2020-01-01", required = true)
 	@NotNull(message="Tarih boş bırakılamaz.")
 	@PastOrPresent
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date started_at;
-	
-	//Objenin değişkeni oluşturulması durumunda o anki zaman bu değişkene kaydedilir. 
+
+	@ApiModelProperty(value = "Creation date (automatically generated)")
 	@CreationTimestamp
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date created_at;
 	
-	//Objenin herhangi bir değişkeninin güncellenmesi durumunda o anki zaman bu değişkene kaydedilir.
+	@ApiModelProperty(value = "Update date (automatically generated)")
 	@UpdateTimestamp
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date updated_at;
 	
-	//Üniversitenin tutulduğu değişken. Tablodaki university_id ile eşleşir.
+	@ApiModelProperty(value = "Student universities. Foreign key of universities table. Depended with many-to-one relationship.")
 	@JsonDeserialize(converter = StudentUniversitySerialize.class)
 	@ManyToOne
 	@JoinColumn(name="university_id")

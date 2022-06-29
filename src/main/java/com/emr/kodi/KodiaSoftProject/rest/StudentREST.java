@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import com.emr.kodi.KodiaSoftProject.service.StudentsServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,23 +32,27 @@ import com.emr.kodi.KodiaSoftProject.exception.get_Id.AddStudentErrors;
 import com.emr.kodi.KodiaSoftProject.exception.get_Id.AddStudentException;
 import com.emr.kodi.KodiaSoftProject.exception.get_Id.StudentNotFoundError;
 import com.emr.kodi.KodiaSoftProject.exception.get_Id.StudentNotFoundException;
-import com.emr.kodi.KodiaSoftProject.service.StudentsService;
 import com.emr.kodi.KodiaSoftProject.service.UniversitiesService;
 
+@Api(value = "Operations pertaining to Students")
 @RestController
 @RequestMapping("/students")
 public class StudentREST {
 
-	@Autowired
-	StudentsService studentsService;
-	
-	@Autowired
+	StudentsServiceImpl studentsService;
+
 	UniversitiesService universityService;
 
-	@Autowired
 	ModelMapper modelMapper;
-	
-	
+
+	@Autowired
+	public StudentREST(StudentsServiceImpl studentsService, UniversitiesService universityService, ModelMapper modelMapper) {
+		this.studentsService = studentsService;
+		this.universityService = universityService;
+		this.modelMapper = modelMapper;
+	}
+
+	@ApiOperation(value = "Get all Students")
 	@GetMapping
 	@ResponseStatus(value = HttpStatus.OK, code = HttpStatus.OK)
 	public List<AllStudentsDto> getAllStudents() {
@@ -63,6 +70,7 @@ public class StudentREST {
 		return convertedList;
 	}
 
+	@ApiOperation(value = "Add new Student")
 	@PostMapping
 	public void addStudent(@Valid @RequestBody Students student, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -94,7 +102,8 @@ public class StudentREST {
 
 		studentsService.save(student);
 	}
-	
+
+	@ApiOperation(value = "Get Student by id")
 	@GetMapping("/{id}")
 	public SingleStudentsDto getStudent(@PathVariable(name="id",required=true) int id) {
 		

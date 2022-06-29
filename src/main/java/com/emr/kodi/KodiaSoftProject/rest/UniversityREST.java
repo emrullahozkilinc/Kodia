@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,25 +24,31 @@ import com.emr.kodi.KodiaSoftProject.exception.get_Id.UniversityNotFoundError;
 import com.emr.kodi.KodiaSoftProject.exception.get_Id.UniversityNotFoundException;
 import com.emr.kodi.KodiaSoftProject.service.UniversitiesService;
 
+@Api(value = "Operations pertaining to Universities")
 @RestController
 @RequestMapping("/universities")
 public class UniversityREST {
 	
-	@Autowired
 	UniversitiesService universitiesService;
 	
-	@Autowired
 	ModelMapper modelMapper;
-	
+
+	@Autowired
+	public UniversityREST(UniversitiesService universitiesService, ModelMapper modelMapper) {
+		this.universitiesService = universitiesService;
+		this.modelMapper = modelMapper;
+	}
+
+	@ApiOperation(value = "Get all Universities")
 	@GetMapping
 	@ResponseStatus(value = HttpStatus.OK, code = HttpStatus.OK)
 	public List<AllUniversitiesDto> getAllUniversities() {
 		List<Universities> list=universitiesService.findAll();
 		
 		List<AllUniversitiesDto> convertedList=new LinkedList<>();
-		
-		for (int i = 0; i < list.size(); i++) {
-			convertedList.add(modelMapper.map(list.get(i), AllUniversitiesDto.class));
+
+		for (Universities universities : list) {
+			convertedList.add(modelMapper.map(universities, AllUniversitiesDto.class));
 		}
         
 		return convertedList;
@@ -54,7 +62,7 @@ public class UniversityREST {
 	}
 	
 	
-	
+	@ApiOperation(value = "Get University with id")
 	@GetMapping("/{id}")
 	public Universities getUniversity(@PathVariable(name="id",required=true) int id) {
 		
